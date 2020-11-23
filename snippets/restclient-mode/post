@@ -1,0 +1,8 @@
+# name: post
+# --
+# $1
+POST $2
+Content-Type: application/json
+{
+  $3
+}
