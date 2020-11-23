@@ -1,9 +1,16 @@
-(load-library "init-lisps")
+(use-package emacs-lisp-mode
+  :bind ((:map emacs-lisp-mode-map
+	       ("C-c C-j" . imenu)
+	       ("C-c e b" . eval-buffer)))
+  :hook ((emacs-lisp-mode . de/lisps-mode-hook)
+	 (emacs-lisp-mode . turn-on-eldoc-mode)
+	 (emacs-lisp-mode . flycheck-mode)))
 
 (use-package elisp-slime-nav
   :ensure t
 
   :bind (("C-c M-." . de/jump-to-elisp-definition))
+  :hook ((emacs-lisp-mode . elisp-slime-nav-mode))
   :config
   (defun de/jump-to-elisp-definition ()
     "See the elisp definition of something.
@@ -14,27 +21,6 @@ a symbol."
     (interactive)
     (with-temp-buffer
       (call-interactively #'elisp-slime-nav-find-elisp-thing-at-point))))
-
-(defun de/elisp-mode-hook ()
-  "hook for emacs lisp mode"
-  (paredit-mode 1) ;; use paredit
-  (elisp-slime-nav-mode 1)
-  (eldoc-mode 1)
-  (paredit-mode 1)
-  (define-key evil-insert-state-local-map (kbd "S-SPC")
-    (lambda () (interactive) (insert "-")))
-  (define-key evil-emacs-state-local-map (kbd "S-SPC")
-    (lambda () (interactive) (insert "-")))
-  (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)
-  (turn-on-elisp-slime-nav-mode)
-  (local-set-key (kbd "C-c C-j") 'imenu)
-  (local-set-key (kbd "C-c eb") #'eval-buffer)
-  ;; (if (fboundp 'helm)
-  ;;     (local-set-key (kbd "C-M-i") 'helm-lisp-completion-at-point))
-  (local-set-key (kbd "C-RET") 'de/evil-paredit-open-below))
-
-(add-hook 'emacs-lisp-mode-hook 'de/elisp-mode-hook)
-(add-hook 'emacs-lisp-mode-hook 'de/lisps-mode-hook)
 
 (add-hook 'minibuffer-setup-hook
 	  (defun de/minibuffer-setup-hook ()

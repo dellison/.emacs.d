@@ -44,8 +44,10 @@
 (load "init-mode-line.el")
 (load "init-ivy.el")
 (load "init-company.el")
+(load "init-flycheck.el")
 (load "init-projectile.el")
 
+(load "init-lisps.el")
 (load "init-elisp.el")
 (load "init-golang.el")
 (load "init-python.el")
