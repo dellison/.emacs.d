@@ -1,5 +1,12 @@
 (use-package yaml-mode
-  :ensure t)
+  :ensure t
+  :hook
+  ((yaml-mode . lsp)
+   (yaml-mode . flycheck-mode)
+   (yaml-mode . company-mode))
+  :config
+  (require 'lsp-yaml)
+  (setq lsp-yaml-schemas nil))
 
 (use-package k8s-mode
   :ensure t)
