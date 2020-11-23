@@ -53,6 +53,7 @@
 (load "init-golang.el")
 (load "init-python.el")
 
+(load "init-markdown")
 (load "init-docker.el")
 (load "init-kubernetes.el")
 (load "init-magit.el")
