@@ -6,6 +6,7 @@
 	("melpa" . "https://melpa.org/packages/")
 	("melpa-stable" . "https://stable.melpa.org/packages/")))
 
+(require 'package)
 (when (not (package-installed-p 'use-package))
   (package-refresh-contents)
   (package-install 'use-package))
