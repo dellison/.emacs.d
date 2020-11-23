@@ -5,6 +5,7 @@
   :init
   (setq company-idle-delay 0
 	company-minimum-prefix-length 1
+	company-require-match nil
 	company-tooltip-align-annotations t
 	company-tooltip-limit 12))
 
