@@ -6,6 +6,13 @@
   :mode ("\\.http\\'" . restclient-mode)
   )
 
+(use-package company-restclient
+  :ensure t
+  :after company restclient
+  :defines company-backends
+  :config
+  (add-to-list 'company-backends 'company-restclient))
+
 (use-package ob-restclient
   :ensure t
   :after restclient)
