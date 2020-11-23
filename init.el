@@ -19,6 +19,7 @@
       echo-keystrokes 0.1
       backup-directory-alist '(("." . "~/backups"))
       ;gc-cons-threshold 20000000
+      custom-file (concat user-emacs-directory "/.emacs-custom.el")
       disabled-command-function nil)
 (setq-default indicate-unused-lines t)
 (show-paren-mode 1)
