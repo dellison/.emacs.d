@@ -1,6 +1,7 @@
 (use-package emacs-lisp-mode
   :bind ((:map emacs-lisp-mode-map
 	       ("C-c C-j" . imenu)
+	       ("C-c C-b" . eval-buffer)
 	       ("C-c e b" . eval-buffer)))
   :hook ((emacs-lisp-mode . de/lisps-mode-hook)
 	 (emacs-lisp-mode . turn-on-eldoc-mode)
