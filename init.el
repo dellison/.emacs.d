@@ -33,6 +33,7 @@
 (load "init-evil.el")
 (load "init-keys.el")
 (load "init-eshell.el")
+(load "init-pdf.el")
 
 (load "init-appearence.el")
 (load "init-mode-line.el")

@@ -60,6 +60,7 @@
     (org-open-file path 1)
     (when page (pdf-view-goto-page page))))
 
+(require 'ol)
 (org-link-set-parameters "pdf-tools"
 			 :follow #'de/org-pdf-view-open-link
 			 :store #'de/org-pdf-view-store-link)
