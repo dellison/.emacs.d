@@ -4,7 +4,8 @@
 (use-package counsel
   :ensure t
 
-  :bind (("M-x" . counsel-M-x))
+  :bind (("M-x" . counsel-M-x)
+	 ("C-c gg" . counsel-git-grep))
 
   :config
   (ivy-mode 1)
