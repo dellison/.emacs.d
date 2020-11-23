@@ -38,6 +38,7 @@
 (load "init-comint.el")
 (load "init-eshell.el")
 (load "init-yasnippet.el")
+(load "init-treemacs.el")
 (load "init-pdf.el")
 
 (load "init-appearence.el")
