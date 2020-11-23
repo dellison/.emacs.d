@@ -1,9 +1,12 @@
 (use-package company
   :ensure t
-  :config
-  (setq company-idle-delay 0.01
+  :bind (("C-M-i" . company-complete)
+	 ("M-/" . company-complete))
+  :init
+  (setq company-idle-delay 0
 	company-minimum-prefix-length 1
-	company-tooltip-limit 20))
+	company-tooltip-align-annotations t
+	company-tooltip-limit 12))
 
 (use-package company-lsp
   :ensure t)
