@@ -34,6 +34,7 @@
 (load "init-isearch.el")
 (load "init-evil.el")
 (load "init-keys.el")
+(load "init-comint.el")
 (load "init-eshell.el")
 (load "init-pdf.el")
 
