@@ -51,4 +51,5 @@
 (load "init-docker.el")
 (load "init-kubernetes.el")
 (load "init-magit.el")
+(load "init-restclient.el")
 (load "init-terraform.el")
