@@ -31,6 +31,7 @@
 (load "init-org.el")
 (load "init-dired.el")
 (load "init-ibuffer.el")
+(load "init-isearch.el")
 (load "init-evil.el")
 (load "init-keys.el")
 (load "init-eshell.el")
