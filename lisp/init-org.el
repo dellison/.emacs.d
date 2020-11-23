@@ -2,12 +2,13 @@
   :bind (("C-c a" . org-agenda)
 	 ("C-c c" . org-capture)
 	 ("C-c l" . org-store-link))
-  :config
+  :init
   (setq org-agenda-files (list "~/dorg")
 	org-format-latex-options '(:foreground "Black"
 				   :background "White"
 				   :scale 2.5
 				   :matchers '("begin" "$1" "$" "$$" "\\(" "\\[")))
+  :config
   (require 'org-protocol))
 
 (use-package evil-org
