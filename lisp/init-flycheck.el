@@ -1,3 +1,6 @@
 (use-package flycheck
+  :ensure t
   :commands flycheck-mode
-  :ensure t)
+  :init
+  :hook (flycheck-mode . flycheck-set-indication-mode)
+  :config)

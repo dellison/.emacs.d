@@ -5,15 +5,16 @@
    (yaml-mode . flycheck-mode)
    (yaml-mode . company-mode))
   :config
-  (require 'lsp-yaml)
-  (setq lsp-yaml-schemas nil))
+  (require 'lsp-yaml))
 
 (use-package k8s-mode
   :ensure t)
 
 (use-package kubernetes
-  :ensure t)
+  :ensure t
+  :bind (("C-c K" . kubernetes-overview)))
 
 (use-package kubel
   :ensure t
-  :bind (("C-c K" . kubel)))
+  ;; :bind (("C-c K" . kubel))
+  )
