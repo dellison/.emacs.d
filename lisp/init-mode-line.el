@@ -42,11 +42,11 @@
 
 (defvar de/mode-line-buffer-name
   '(:eval
-    (concat 
+    (concat
      ;; (if (and (not (eq major-mode 'dired-mode)) buffer-file-name)
      ;; 	 (propertize default-directory
      ;; 		     'face '(:height 130)))
-     (propertize "%b" 
+     (propertize "%b"
 		 'face 'font-lock-keyword-face)
      (propertize (concat "" (if (and (buffer-file-name) (buffer-modified-p)) "[*]" "   "))
      		 'face '(:height 130))))
@@ -55,12 +55,12 @@
 (defvar de/mode-line-buffer-size
   '(:eval (concat (propertize "[ %l | %c ] "
 			      'face '(:height 130))))
-  "Display the line number")
+  "Display the line number.")
 
 (defvar de/mode-line-mode-info
   '(:eval (propertize "%m"
 		      'face 'font-lock-variable-name-face))
-  "Display the major mode")
+  "Display the major mode.")
 
 (setq de/mode-line-time
       '(:eval
@@ -79,11 +79,11 @@
 		    de/mode-line-mode-info " "
 		    de/mode-line-time))
 
-(defun flash-mode-line ()
+(defun de/flash-mode-line ()
   "Flash the mode line white briefly."
   (let ((bg (face-background 'mode-line)))
     (set-face-background 'mode-line "white")
     (run-with-idle-timer 0.1 nil #'set-face-background 'mode-line bg)))
 
-;; (setq ring-bell-function #'flash-mode-line)
+(setq ring-bell-function #'de/flash-mode-line)
 

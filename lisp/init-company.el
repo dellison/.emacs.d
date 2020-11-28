@@ -9,5 +9,8 @@
 	company-tooltip-align-annotations t
 	company-tooltip-limit 12))
 
-(use-package company-lsp
-  :ensure t)
+;; (use-package company-lsp
+;;   :ensure t
+;;   :after company lsp
+;;   :config
+;;   (push 'company-lsp company-backends))

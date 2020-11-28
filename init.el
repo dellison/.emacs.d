@@ -1,6 +1,12 @@
 (when (version< emacs-version "27")
   (load (concat user-emacs-directory "early-init.el")))
 
+;; file for customize.el
+(setq custom-file (expand-file-name (concat user-emacs-directory
+					    "/.emacs-custom.el")))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 (setq package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
 	("melpa" . "https://melpa.org/packages/")
@@ -20,13 +26,13 @@
       echo-keystrokes 0.1
       backup-directory-alist '(("." . "~/backups"))
       ;gc-cons-threshold 20000000
-      custom-file (concat user-emacs-directory "/.emacs-custom.el")
       disabled-command-function nil)
 (setq-default indicate-unused-lines t)
 (show-paren-mode 1)
 
 (when (display-graphic-p)
-  (blink-cursor-mode 0))
+  (blink-cursor-mode 0)
+  (server-start))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (load "init-org.el")
@@ -38,10 +44,12 @@
 (load "init-ediff")
 (load "init-kill-ring.el")
 (load "init-comint.el")
+(load "init-shell.el")
 (load "init-eshell.el")
 (load "init-yasnippet.el")
 (load "init-treemacs.el")
 (load "init-pdf.el")
+(load "init-osx.el")
 
 (load "init-appearence.el")
 (load "init-mode-line.el")
@@ -50,6 +58,7 @@
 (load "init-flycheck.el")
 (load "init-projectile.el")
 
+(load "init-lsp.el")
 (load "init-lisps.el")
 (load "init-elisp.el")
 (load "init-golang.el")
@@ -61,3 +70,6 @@
 (load "init-magit.el")
 (load "init-restclient.el")
 (load "init-terraform.el")
+
+(when (file-exists-p (concat user-emacs-directory "lisp/init-site.el"))
+  (require 'init-site))
