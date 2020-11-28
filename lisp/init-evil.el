@@ -114,15 +114,15 @@
   (evil-matchit-mode 1))
 
 (use-package evil-paredit
-  :ensure evil-paredit)
+  :ensure t)
 
 (use-package evil-nerd-commenter
-  :ensure evil-nerd-commenter
+  :ensure t
   :config
   (global-set-key (kbd "M-;") #'evilnc-comment-or-uncomment-lines))
 
 (use-package evil-surround
-  :ensure evil-surround
+  :ensure t
   :config
   (global-evil-surround-mode 1))
 
