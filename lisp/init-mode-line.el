@@ -1,3 +1,11 @@
+(defun flash-mode-line ()
+  "Flash the mode line white briefly."
+  (let ((bg (face-background 'mode-line)))
+    (set-face-background 'mode-line "white")
+    (run-with-idle-timer 0.1 nil #'set-face-background 'mode-line bg)))
+
+(setq ring-bell-function #'flash-mode-line)
+
 (use-package nyan-mode
   :ensure nyan-mode
   :config
@@ -62,6 +70,7 @@
 (setq-default mode-line-format
 	      (list ""
 		    de/mode-line-evil
+		    ;flycheck-mode-line
 		    "%@ " ;; '-' if default-directory is local, '@' if it's remote
 		    de/mode-line-buffer-name
 		    de/mode-line-buffer-size
