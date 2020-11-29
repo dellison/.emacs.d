@@ -7,9 +7,11 @@
 	org-format-latex-options '(:foreground "Black"
 				   :background "White"
 				   :scale 2.5
-				   :matchers '("begin" "$1" "$" "$$" "\\(" "\\[")))
+				   :matchers '("begin" "$1" "$" "$$" "\\(" "\\["))
+	org-indent-indentation-per-level 1)
   :config
-  (require 'org-protocol))
+  (use-package org-attach)
+  (use-package org-protocol))
 
 (use-package evil-org
   :after evil org
