@@ -2,9 +2,9 @@
   :ensure t
   :bind ((:map restclient-mode-map
 	       (("C-c C-c" . restclient-http-send-current-stay-in-window))))
-  :hook (restclient-mode . yas-minor-mode-on)
-  :mode ("\\.http\\'" . restclient-mode)
-  )
+  :hook ((restclient-mode . yas-minor-mode-on)
+	 (restclient-mode . company-mode))
+  :mode ("\\.http\\'" . restclient-mode))
 
 (use-package company-restclient
   :ensure t
