@@ -6,7 +6,7 @@
 				 (interactive)
 				 (let ((igrep-options "-R"))
 				   (call-interactively #'igrep))))
-(global-set-key (kbd "C-c sw") #'swap-windows)
+(global-set-key (kbd "C-c sw") #'de/swap-windows)
 (global-set-key (kbd "C-c dc") #'describe-char)
 (global-set-key (kbd "C-c rr") #'replace-rectangle)
 (global-set-key (kbd "C-c es") #'eshell)
@@ -32,6 +32,7 @@
 (global-set-key (kbd "\C-x\C-m") #'execute-extended-command) ;; per Steve Yegge's advice
 
 (global-set-key (kbd "M-o") #'other-window)
+(global-set-key (kbd "M-/") #'hippie-expand)
 
 (defalias 'qrr 'query-replace-regexp)
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -115,3 +116,47 @@ Otherwise, moves to the beginning of the line."
     (evil-normal-state 1))
   (global-set-key (kbd "C-x C-s") #'de/save-buffer-and-normal-state)
   (define-key evil-insert-state-map (kbd "C-x C-s") #'de/save-buffer-and-normal-state))
+
+(defun de/toggle-window-split ()
+  "Toggle between a horizontal and vertical arrangement of two windows.
+Only works if there are exactly two windows active."
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+	     (next-win-buffer (window-buffer (next-window)))
+	     (this-win-edges (window-edges (selected-window)))
+	     (next-win-edges (window-edges (next-window)))
+	     (this-win-2nd (not (and (<= (car this-win-edges)
+					 (car next-win-edges))
+				     (<= (cadr this-win-edges)
+					 (cadr next-win-edges)))))
+	     (splitter
+	      (if (= (car this-win-edges)
+		     (car (window-edges (next-window))))
+		  'split-window-horizontally
+		'split-window-vertically)))
+	(delete-other-windows)
+	(let ((first-win (selected-window)))
+	  (funcall splitter)
+	  (if this-win-2nd (other-window 1))
+	  (set-window-buffer (selected-window) this-win-buffer)
+	  (set-window-buffer (next-window) next-win-buffer)
+	  (select-window first-win)
+	  (if this-win-2nd (other-window 1))))
+    (message "You must have two windows to toggle them!")))
+
+(defun de/swap-windows ()
+  "If you have 2 windows, it swaps them. (from Steve Yegge)"
+  (interactive)
+  (cond ((not (= (count-windows) 2))(message "You need exactly 2 windows to do this."))
+	(t
+	 (let* ((w1 (nth 0 (window-list)))
+		(w2 (nth 1 (window-list)))
+		(b1 (window-buffer w1))
+		(b2 (window-buffer w2))
+		(s1 (window-start w1))
+		(s2 (window-start w2)))
+	   (set-window-buffer w1 b2)
+	   (set-window-buffer w2 b1)
+	   (set-window-start w1 s2)
+	   (set-window-start w2 s1)))))
