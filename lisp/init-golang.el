@@ -9,7 +9,8 @@
     (setq tab-width 4)
     (flycheck-mode t)
     (company-mode-on)
-    (yas-minor-mode-on))
+    (yas-minor-mode-on)
+    (lsp-go-install-save-hooks))
 
   (setq gofmt-command "goimports"))
 

@@ -1,6 +1,12 @@
 (use-package python
+  :bind ((:map python-mode-map
+	       ("S-SPC" . de/python-underscore)))
   :init
-  (setq python-shell-interpreter "python3"))
+  (setq python-shell-interpreter "python3")
+  :config
+  (defun de/python-underscore ()
+    (interactive)
+    (insert "_")))
 
 (use-package elpy
   :ensure t

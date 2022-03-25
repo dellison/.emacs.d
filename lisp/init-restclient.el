@@ -4,9 +4,7 @@
 	       (("C-c C-c" . restclient-http-send-current-stay-in-window))))
   :hook ((restclient-mode . yas-minor-mode-on)
 	 (restclient-mode . company-mode))
-  :mode ("\\.http\\'" . restclient-mode)
-  :config
-  (add-to-list org-babel-load-languages '(restclient . t)))
+  :mode ("\\.http\\'" . restclient-mode))
 
 (use-package company-restclient
   :ensure t
@@ -17,4 +15,6 @@
 
 (use-package ob-restclient
   :ensure t
-  :after restclient)
+  :after org restclient
+  :config
+  (add-to-list 'org-babel-load-languages '(restclient . t)))

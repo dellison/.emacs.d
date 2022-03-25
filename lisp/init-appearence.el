@@ -1,9 +1,21 @@
-(use-package zenburn-theme
+;; (use-package zenburn-theme
+;;   :ensure t
+;;   :if (display-graphic-p)
+;;   :config
+;;   (load-theme 'zenburn t)
+;;   )
+
+(use-package darktooth-theme
   :ensure t
   :if (display-graphic-p)
   :config
-  (load-theme 'zenburn t)
-  )
+  (load-theme 'darktooth t))
+
+;; (use-package modus-themes
+;;   :ensure t
+;;   :if (display-graphic-p)
+;;   :config
+;;   (load-theme 'modus-operandi t))
 
 (use-package beacon
   :ensure t
