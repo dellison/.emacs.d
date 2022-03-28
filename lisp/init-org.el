@@ -1,17 +1,144 @@
 (use-package org
-  :bind (("C-c a" . org-agenda)
-	 ("C-c c" . org-capture)
-	 ("C-c l" . org-store-link))
+  :bind (("C-c c" . org-capture)
+	 ("C-c l" . org-store-link)
+	 ;; (:map org-agenda-mode
+	 ;;  ("y" . org-agenda-todo-yesterday))
+	 )
+  :hook ((org-mode . yas-minor-mode-on)
+	 ;;(org-mode . yas-reload-all)
+	 (org-mode . company-mode)
+	 ;; (org-agenda-mode . hl-line-mode)
+	 )
   :init
-  (setq org-agenda-files (list "~/dorg")
+  (setq ;; org-agenda-files (list "~/org") ; (list "~/dorg")
+	;; org-agenda-include-diary t
 	org-format-latex-options '(:foreground "Black"
-				   :background "White"
-				   :scale 2.5
-				   :matchers '("begin" "$1" "$" "$$" "\\(" "\\["))
-	org-indent-indentation-per-level 1)
+					       :background "White"
+					       :scale 2.5
+					       :matchers '("begin" "$1" "$" "$$" "\\(" "\\["))
+	org-indent-indentation-per-level 1
+	org-log-into-drawer t
+	;;org-log-done-with-time nil
+	
+	org-refile-targets (list
+			    (cons 'org-agenda-files '(:maxlevel . 4)))
+	org-refile-use-outline-path nil
+	org-refile-path-complete-in-steps nil)
+  :config)
+
+(use-package org-agenda
+  :after org
+  :bind (("C-c a" . org-agenda)
+	 (:map org-agenda-mode-map
+	  ("y" . org-agenda-todo-yesterday)))
   :config
-  (use-package org-attach)
-  (use-package org-protocol))
+  (setq org-agenda-files (list "~/org")
+	org-agenda-include-diary t
+	org-agenda-span 'day)
+  :hook
+  ((org-agenda-mode . hl-line-mode))
+  )
+
+(use-package org-habit
+  :after org
+  :config
+  (setq org-habit-graph-column 70)
+  )
+
+(use-package org-attach
+  :after org)
+
+(use-package org-capture
+  :after org)
+
+(use-package org-journal
+  :ensure t
+  :defer t
+  :after org-capture
+  :init
+  ;;(setq org-journal-prefix-key "C-c j ")
+  :config
+  (setq org-journal-dir "~/org/journal/"
+        org-journal-date-format "%A, %d %B %Y"
+	org-journal-file-format "Journal-%Y.%m.%d.txt"
+	org-journal-file-header "#+STARTUP: indent"
+	org-journal-file-type 'daily
+	org-journal-enable-agenda-integration t))
+
+(use-package org-protocol
+    :after org-capture
+    :config
+    (add-to-list 'org-capture-templates
+		 '("c" "Capture" entry (file "Capture.org")
+		   "* %?\n\n%U"))
+    (add-to-list 'org-capture-templates
+		 '("p" "Protocol" entry (file "Capture.org")
+		   "* %:description ([[%:link][link]])\n%U\n\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"))
+    (add-to-list 'org-capture-templates
+		 '("l" "Link" entry
+		   (file "Capture.org")
+		   "* %a\n%U\n%?")))
+
+(use-package org-super-agenda
+  :ensure t
+  :defer t
+  :after org-agenda
+  :config
+  (setq org-super-agenda-groups '(
+				  (:name "___Schedule___"
+					 :time-grid t)
+				  (:name "🐈 Sylvia"
+					 :tag "sylvia")
+
+				  ;; SPL
+				  (:name "!!! Overdue at the Library !!!"
+					 :and (:tag "spl" :deadline past))
+				  (:name "Due today at the library!"
+					 :and (:tag "spl" :deadline today))
+
+				  ;; Scarecrow
+				  (:name "!!! Overdue at Scarecrow !!!"
+					 :and (:tag "scarecrow" :deadline past))
+				  (:name "Due today at Scarecrow!"
+					 :and (:tag "spl" :deadline today))
+
+				  (:name "Important!"
+					 :tag ("bills" "sylvia")
+					 :category "Finance")
+				  
+				  (:name "Socializing & Correspondence"
+					 :category "Social")
+
+				  ;; todo book section
+
+				  ;; Yale "Theory of Literature" Course
+				  (:name "'Theory of Literature' Course"
+					 :tag "engl300")
+
+				  (:name "Reading"
+					 :todo "READ")
+
+				  (:name "Film & Things to Watch"
+					 :todo "WATCH"
+					 :category "Film")
+
+				  (:name "Listening"
+					 :todo "LISTEN")
+
+				  ;; (:name "Home"
+				  ;; 	 :file-path "Home")
+
+				  (:name "Emacs"
+					 :category "Emacs")
+
+				  )
+	org-super-agenda-unmatched-name "Other"
+	org-super-agenda-hide-empty-groups t))
+
+(defun de/org-refile-here ())
+
+
+
 
 (use-package evil-org
   :after evil org
@@ -23,3 +150,27 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
+
+(use-package reftex
+  :init
+  (setq reftex-default-bibliography '("~/org/ref/references.bib"
+				      )
+	reftex-plug-into-AUCTeX t))
+
+
+
+(use-package org-ref
+  :ensure t
+  :init
+  (setq reftex-default-bibliography  "~/org/ref/references.bib"
+	org-ref-default-bibliography '("~/org/ref/references.bib")
+	org-ref-pdf-directory "~/org/ref/pdf/")
+  :config)
+
+(use-package ivy-bibtex
+  :ensure t
+  :after org-ref
+  :config
+  (ivy-set-display-transformer
+   'org-ref-ivy-insert-cite-link
+   'ivy-bibtex-display-transformer))

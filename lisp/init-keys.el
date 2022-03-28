@@ -144,6 +144,8 @@ Only works if there are exactly two windows active."
 	  (select-window first-win)
 	  (if this-win-2nd (other-window 1))))
     (message "You must have two windows to toggle them!")))
+(global-set-key (kbd "C-x |") 'de/toggle-window-split)
+(global-set-key (kbd "C-c |") 'de/toggle-window-split)
 
 (defun de/swap-windows ()
   "If you have 2 windows, it swaps them. (from Steve Yegge)"

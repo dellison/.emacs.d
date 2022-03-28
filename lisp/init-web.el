@@ -1,3 +1,6 @@
+(use-package eww
+  :bind (("C-c W" . eww)))
+
 (use-package restclient
   :ensure t
   :bind ((:map restclient-mode-map
@@ -6,7 +9,7 @@
 	 (restclient-mode . company-mode))
   :mode ("\\.http\\'" . restclient-mode)
   :config
-  (add-to-list org-babel-load-languages '(restclient . t)))
+  (add-to-list 'org-babel-load-languages '(restclient . t)))
 
 (use-package company-restclient
   :ensure t
@@ -17,4 +20,9 @@
 
 (use-package ob-restclient
   :ensure t
-  :after restclient)
+  :after org restclient)
+
+(use-package web-mode
+  :ensure t)
+
+(provide 'init-web)
