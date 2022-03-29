@@ -2,8 +2,9 @@
   :ensure t)
 
 (use-package kubernetes
-  :ensure t)
-
-(use-package kubel
   :ensure t
-  :bind (("C-c K" . kubel)))
+  :bind (("C-c K" . kubernetes-overview)))
+
+;; (use-package kubel
+;;   :ensure t
+;;   :bind (("C-c K" . kubel)))

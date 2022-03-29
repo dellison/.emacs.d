@@ -116,11 +116,12 @@
 					 :tag "engl300")
 
 				  (:name "Reading"
-					 :todo "READ")
+					 :todo "READ"
+					 :category "Reading")
 
 				  (:name "Film & Things to Watch"
 					 :todo "WATCH"
-					 :category "Film")
+					 :category ("Film" "Scarecrow"))
 
 				  (:name "Listening"
 					 :todo "LISTEN")
@@ -133,12 +134,10 @@
 
 				  )
 	org-super-agenda-unmatched-name "Other"
-	org-super-agenda-hide-empty-groups t))
+	org-super-agenda-hide-empty-groups t)
+  (org-super-agenda-mode t))
 
-(defun de/org-refile-here ())
-
-
-
+;;; (defun de/org-refile-here ())
 
 (use-package evil-org
   :after evil org

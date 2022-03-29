@@ -31,6 +31,9 @@
       ;gc-cons-threshold 20000000
       
       disabled-command-function nil)
+
+(setq mac-command-modifier 'meta)
+
 (setq-default indicate-unused-lines t)
 (show-paren-mode 1)
 
@@ -52,8 +55,8 @@
 (load "init-shell.el")
 (load "init-eshell.el")
 (load "init-yasnippet.el")
-(load "init-which-key.el")
-(load "init-treemacs.el")
+;; (load "init-which-key.el")
+;; (load "init-treemacs.el")
 (load "init-pdf.el")
 
 (load "init-appearence.el")
@@ -63,13 +66,13 @@
 (load "init-flycheck.el")
 (load "init-projectile.el")
 
-(load "init-lsp.el")
+;;(load "init-lsp.el")
 
 (load "init-lisps.el")
 (load "init-elisp.el")
 (load "init-golang.el")
-(load "init-haskell.el")
-(load "init-julia.el")
+;;(load "init-haskell.el")
+;;(load "init-julia.el")
 (load "init-python.el")
 
 (load "init-markdown")
