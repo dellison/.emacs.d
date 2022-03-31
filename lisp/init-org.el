@@ -55,13 +55,14 @@
   :ensure t
   :defer t
   :after org-capture
+  :bind ("C-c j j" . org-journal-new-entry)
   :init
-  ;;(setq org-journal-prefix-key "C-c j ")
+  (setq org-journal-prefix-key "C-c j ")
   :config
   (setq org-journal-dir "~/org/journal/"
         org-journal-date-format "%A, %d %B %Y"
-	org-journal-file-format "Journal-%Y.%m.%d.txt"
-	org-journal-file-header "#+STARTUP: indent"
+	org-journal-file-format "Journal-%Y.%m.%d.org"
+	;; org-journal-file-header "#+STARTUP: indent"
 	org-journal-file-type 'daily
 	org-journal-enable-agenda-integration t))
 
@@ -86,7 +87,8 @@
   :config
   (setq org-super-agenda-groups '(
 				  (:name "___Schedule___"
-					 :time-grid t)
+					 :time-grid t
+					 :category "Diary")
 				  (:name "🐈 Sylvia"
 					 :tag "sylvia")
 
@@ -130,7 +132,8 @@
 				  ;; 	 :file-path "Home")
 
 				  (:name "Emacs"
-					 :category "Emacs")
+					 :category "Emacs"
+					 :tag "emacs")
 
 				  )
 	org-super-agenda-unmatched-name "Other"
