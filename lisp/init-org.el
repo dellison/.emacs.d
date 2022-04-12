@@ -24,7 +24,13 @@
 			    (cons 'org-agenda-files '(:maxlevel . 4)))
 	org-refile-use-outline-path nil
 	org-refile-path-complete-in-steps nil)
-  :config)
+  :config
+  (setq org-edit-src-content-indentation 0))
+
+;; (use-package org-babel
+;;   :after org
+;;   :config
+;;   (setq ))
 
 (use-package org-agenda
   :after org
@@ -78,12 +84,42 @@
     (add-to-list 'org-capture-templates
 		 '("l" "Link" entry
 		   (file "Capture.org")
-		   "* %a\n%U\n%?")))
+		   "* %a\n%U\n%?"))
+    (add-to-list 'org-capture-templates
+		 '("S" "Movies from Scarecrow Video" "entry" (file "Scarecrow.org")
+		   ("* Movies from Scarecrow [/]
+DEADLINE: %^t
+- [ ] %?")))
+    )
+
+(use-package org-roam
+  :ensure t
+  :defer t
+  :bind (("C-c n c" . org-roam-capture)
+	 ("C-c n d c" . org-roam-dailies-capture-today)
+	 ("C-c n d ." . org-roam-dailies-goto-today)
+	 ("C-c n f" . org-roam-node-find)
+	 ("C-c n i" . org-roam-node-insert)
+	 ("C-c n n" . org-roam-node-find))
+  :commands org-roam-node-insert org-roam-node-find org-roam-capture
+  :after org
+  :init
+  (setq org-roam-directory (file-truename "~/Dropbox/org-roam")
+	org-roam-dailies-directory "daily/"
+	org-roam-dailies-capture-templates
+	'(("d" "default" entry
+              "* %^{Title} %U\n%?"
+              :target (file+head "%<%Y-%m-%d>.org"
+                                 "#+title: %<%Y-%m-%d>\n"))))
+  :config
+  (org-roam-db-autosync-mode))
 
 (use-package org-super-agenda
   :ensure t
   :defer t
   :after org-agenda
+  :init
+  (org-super-agenda-mode 1)
   :config
   (setq org-super-agenda-groups '(
 				  (:name "___Schedule___"
@@ -137,8 +173,7 @@
 
 				  )
 	org-super-agenda-unmatched-name "Other"
-	org-super-agenda-hide-empty-groups t)
-  (org-super-agenda-mode t))
+	org-super-agenda-hide-empty-groups t))
 
 ;;; (defun de/org-refile-here ())
 
