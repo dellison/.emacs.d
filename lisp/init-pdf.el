@@ -14,8 +14,9 @@
 	       ("K" . de/pdf-faster-previous-line-or-page)
 	       ("l" . image-forward-hscroll)
 	       ("o" . pdf-outline))
-	 (:map pdf-outline-minor-mode-map
-	       ("a" . outline-show-all)))
+	 ;; (:map pdf-outline-minor-mode-map
+	 ;;       ("a" . outline-show-all))
+	 )
 
   :config
   (require 'pdf-occur)

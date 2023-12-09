@@ -2,8 +2,18 @@
   :ensure t
   :if (display-graphic-p)
   :config
-  (load-theme 'zenburn t)
+  ;;(load-theme 'zenburn t)
   )
+
+(use-package solarized-theme
+  :ensure t
+  :config
+  (setq solarized-scale-org-headlines nil
+	solarized-use-variable-pitch nil)
+  (load-theme ;;'solarized-gruvbox-light
+   ;; 'solarized-selenized-white
+   'solarized-light
+   ))
 
 (use-package beacon
   :ensure t

@@ -19,6 +19,8 @@
 	 ("C-n" . evil-next-visual-line)
 	 ("C-p" . evil-previous-visual-line))
 
+  :init
+  (setq evil-want-C-i-jump nil)
   :config
   (evil-mode 1)
   (setq evil-move-cursor-back t
@@ -32,9 +34,12 @@
     (define-key evil-insert-state-map (kbd "C-z") 'de/dont-suspend-frame)
     (setq evil-move-cursor-back t
 	evil-cross-lines t
-	evil-default-cursor      '("white" box)
-	evil-insert-state-cursor '("white"  box)
-	evil-emacs-state-cursor  '("#FFFFFF"  box)
+	;; evil-default-cursor      '("white" box)
+	;; evil-insert-state-cursor '("white"  box)
+	;; evil-emacs-state-cursor  '("#FFFFFF"  box)
+	evil-default-cursor      '("black" box)
+	evil-insert-state-cursor '("black"  box)
+	evil-emacs-state-cursor  '("#000000"  box)
 	;;evil-motion-state-cursor '("#D0BF8F"  box) ;; same as "zenburn-yellow-2"
 	evil-motion-state-cursor '("LightSkyBlue" box) ;; same as time in mode line
 	evil-normal-state-cursor '("#D0BF8F"  box)
@@ -103,9 +108,10 @@
         initial-state-emacs-modes)
 
   ;; "quit" with C-g also sends you back to normal mode
-  (defadvice keyboard-quit (before evil activate)
-    (when (and (fboundp 'evil-normal-state) (not (memq major-mode initial-state-emacs-modes)))
-      (evil-normal-state))))
+  ;; (defadvice keyboard-quit (before evil activate)
+  ;;   (when (and (fboundp 'evil-normal-state) (not (memq major-mode initial-state-emacs-modes)))
+  ;;     (evil-normal-state)))
+  )
 
 (use-package evil-matchit
   :ensure evil-matchit

@@ -3,6 +3,9 @@
 	 ("C-c l" . org-store-link)
 	 ;; (:map org-agenda-mode
 	 ;;  ("y" . org-agenda-todo-yesterday))
+	 (:map org-mode-map
+	  ("M-L" . org-shiftmetaright)
+	  ("M-H" . org-shiftmetaleft))
 	 )
   :hook ((org-mode . yas-minor-mode-on)
 	 ;;(org-mode . yas-reload-all)
@@ -11,6 +14,7 @@
 	 )
   :init
   (setq ;; org-agenda-files (list "~/org") ; (list "~/dorg")
+        ;;   org-agenda-files (list "~/Dropbox/org")
 	;; org-agenda-include-diary t
 	org-format-latex-options '(:foreground "Black"
 					       :background "White"
@@ -36,9 +40,12 @@
   :after org
   :bind (("C-c a" . org-agenda)
 	 (:map org-agenda-mode-map
-	  ("y" . org-agenda-todo-yesterday)))
+	  ("y" . org-agenda-todo-yesterday)
+	  ("W" . org-agenda-open-link)))
+  :init
+  (setq org-agenda-files (list "~/Dropbox/org"))
   :config
-  (setq org-agenda-files (list "~/org")
+  (setq ;;org-agenda-files (list "~/org")
 	org-agenda-include-diary t
 	org-agenda-span 'day)
   :hook
@@ -98,9 +105,12 @@ DEADLINE: %^t
   :bind (("C-c n c" . org-roam-capture)
 	 ("C-c n d c" . org-roam-dailies-capture-today)
 	 ("C-c n d ." . org-roam-dailies-goto-today)
+	 ("C-c n d z" . de/org-roam-dailies-goto-zulily)
 	 ("C-c n f" . org-roam-node-find)
 	 ("C-c n i" . org-roam-node-insert)
-	 ("C-c n n" . org-roam-node-find))
+	 ("C-c n I" . org-roam-node-insert-immediate)
+	 ("C-c n n" . org-roam-node-find)
+	 ("C-c n z" . de/org-roam-dailies-goto-zulily))
   :commands org-roam-node-insert org-roam-node-find org-roam-capture
   :after org
   :init
@@ -125,10 +135,28 @@ DEADLINE: %^t
 	'(("d" "default" entry
               "* %^{Title} %U\n%?"
               :target (file+head "%<%Y-%m-%d>.org"
-                                 "#+title: %<%Y-%m-%d>\n"))))
+                                 "#+title: %<%Y-%m-%d>\n"))
+	  ("z" "zulily" entry
+	   "* Standup/Status\n** Me\n** Nate\n** Supritha\n** Ramya\n** Jisun\n** Nischal\n* Meetings\n* Notes\n"
+	   :target (file+head "Zulily_%<%Y%m%d>.org"
+			      "#+title: Zulily Notes: %<%Y%m%d>\n#+filetags: zulily\n"
+			      ))
+	  ))
   :config
   (org-roam-db-autosync-mode)
-  (add-to-list 'org-agenda-files org-roam-directory))
+  ;; (add-to-list 'org-agenda-files org-roam-directory)
+  )
+
+(defun de/org-roam-dailies-goto-zulily ()
+  (interactive)
+  (org-roam-dailies-goto-today "z"))
+
+(defun org-roam-node-insert-immediate (arg &rest args)
+  (interactive "P")
+  (let ((args (cons arg args))
+        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                  '(:immediate-finish t)))))
+    (apply #'org-roam-node-insert args)))
 
 (use-package org-super-agenda
   :ensure t
@@ -143,6 +171,9 @@ DEADLINE: %^t
 					 :category "Diary")
 				  (:name "🐈 Sylvia"
 					 :tag "sylvia")
+
+				  (:name "Work"
+					 :category "Zulily")
 
 				  ;; SPL
 				  (:name "!!! Overdue at the Library !!!"
@@ -171,7 +202,8 @@ DEADLINE: %^t
 
 				  (:name "Reading"
 					 :todo "READ"
-					 :category "Reading")
+					 :category "Reading"
+					 :tag "spl")
 
 				  (:name "Film & Things to Watch"
 					 :todo "WATCH"
@@ -180,8 +212,8 @@ DEADLINE: %^t
 				  (:name "Listening"
 					 :todo "LISTEN")
 
-				  ;; (:name "Home"
-				  ;; 	 :file-path "Home")
+				  (:name "Home"
+					 :category "Home")
 
 				  (:name "Emacs"
 					 :category "Emacs"
