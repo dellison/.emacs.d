@@ -29,6 +29,7 @@
       echo-keystrokes 0.1
       backup-directory-alist '(("." . "~/backups"))
       ;gc-cons-threshold 20000000
+      confirm-kill-emacs #'y-or-n-p
       
       disabled-command-function nil)
 
