@@ -1,19 +1,23 @@
 (use-package python
+  :mode ("\\.py\\'" . python-ts-mode)
+  :hook ((python-ts-mode . eglot-ensure))
   :init
-  (setq python-shell-interpreter "python3"))
+  (setq python-shell-interpreter "python3")
+  :config
+  (add-to-list 'treesit-language-source-alist
+  	       '(python "https://github.com/tree-sitter/tree-sitter-python"))
+  )
 
-(use-package elpy
+(use-package poetry
   :ensure t
-  :defer t
-  :init
-  (setq elpy-rpc-python-command "python3")
-  (advice-add 'python-mode :before 'elpy-enable)
-  :hook ((python-mode . elpy-mode)
-	 (elpy-mode . flycheck-mode)))
+  :after python)
 
 (use-package pyvenv
-  :ensure t)
+  :ensure t
+  :after python)
 
-(use-package cython-mode
-  :commands cython-mode
-  :mode (("\\.pyx\\'" . cython-mode)))
+(use-package auto-virtualenv
+  :ensure t
+  :after pyvenv
+  :hook ((python-mode . auto-virtualenv-set-virtualenv)
+	 (projectile-after-switch-project auto-virtualenv-set-virtualenv)))
