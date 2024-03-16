@@ -62,11 +62,11 @@
 (load "init-pdf.el")
 
 (load "init-appearence.el")
-(load "init-company.el")
 (load "init-mode-line.el")
-(load "init-ivy.el")
 (load "init-flycheck.el")
 (load "init-projectile.el")
+(load "init-completion.el")
+
 
 ;;(load "init-lsp.el")
 

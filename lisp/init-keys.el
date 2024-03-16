@@ -17,7 +17,6 @@
 ;;    - "line wrap" mnemonic too
 (global-set-key (kbd "C-c ws") #'whitespace-mode)
 (global-set-key (kbd "C-c M-.") #'de/jump-to-elisp-definition)
-(global-set-key (kbd "M-/") #'hippie-expand)
 
 (global-set-key (kbd "C-c q") #'quit-window)
 
@@ -32,7 +31,6 @@
 (global-set-key (kbd "\C-x\C-m") #'execute-extended-command) ;; per Steve Yegge's advice
 
 (global-set-key (kbd "M-o") #'other-window)
-(global-set-key (kbd "M-/") #'hippie-expand)
 
 (defalias 'qrr 'query-replace-regexp)
 (defalias 'yes-or-no-p 'y-or-n-p)
