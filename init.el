@@ -44,6 +44,7 @@
 (server-start)
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(load "init-project.el")
 (load "init-json.el")
 (load "init-editorconfig.el")
 (load "init-org.el")
@@ -65,7 +66,6 @@
 (load "init-appearence.el")
 (load "init-mode-line.el")
 (load "init-flycheck.el")
-(load "init-projectile.el")
 (load "init-completion.el")
 
 
