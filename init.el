@@ -45,6 +45,7 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (load "init-json.el")
+(load "init-editorconfig.el")
 (load "init-org.el")
 (load "init-dired.el")
 (load "init-ibuffer.el")
