@@ -3,18 +3,24 @@
   :ensure t
 
   :bind (:map evil-normal-state-map
-	 ("j" . evil-next-visual-line)
-	 ("k" . evil-previous-visual-line)
-	 ("C-n" . evil-next-visual-line)
-	 ("C-p" . evil-previous-visual-line)
-	 ("C-r" . isearch-backward-regexp)
-	 ("C-t" . transpose-chars)
-	 ("M-t" . transpose-words)
+	 ("j"     . evil-next-visual-line)
+	 ("k"     . evil-previous-visual-line)
+	 ("C-n"   . evil-next-visual-line)
+	 ("C-p"   . evil-previous-visual-line)
+	 ("C-r"   . isearch-backward-regexp)
+	 ("C-t"   . transpose-chars)
+	 ("M-t"   . transpose-words)
 	 ("s-M-t" . transpose-sexps)
-	 ("C-w" . backward-kill-word)
-	 ("TAB" . nil)
-	 ("M-." . nil)
-	 ("M-," . nil)
+	 ("C-w"   . backward-kill-word)
+	 ("TAB"   . nil)
+	 ("M-."   . nil)
+	 ("M-,"   . nil)
+	 :map evil-emacs-state-map
+	 ("C-z" . de/dont-suspend-frame)
+	 :map evil-insert-state-map
+	 ("C-z" . de/dont-suspend-frame)
+	 :map evil-motion-state-map
+	 ("RET" . nil)
 	 :map evil-visual-state-map
 	 ("C-n" . evil-next-visual-line)
 	 ("C-p" . evil-previous-visual-line))
@@ -28,19 +34,15 @@
     (defun de/dont-suspend-frame ()
       (interactive)
       (message "didn't suspend the frame!"))
-    (define-key evil-emacs-state-map (kbd "C-z") 'de/dont-suspend-frame)
-    (define-key evil-insert-state-map (kbd "C-z") 'de/dont-suspend-frame)
     (setq evil-move-cursor-back t
-	evil-cross-lines t
-	evil-default-cursor      '("white" box)
-	evil-insert-state-cursor '("white"  box)
-	evil-emacs-state-cursor  '("#FFFFFF"  box)
-	;;evil-motion-state-cursor '("#D0BF8F"  box) ;; same as "zenburn-yellow-2"
-	evil-motion-state-cursor '("LightSkyBlue" box) ;; same as time in mode line
-	evil-normal-state-cursor '("#D0BF8F"  box)
-	evil-visual-state-cursor '("#D0BF8F"  box)))
-
-  (define-key evil-motion-state-map (kbd "RET") nil)
+	  evil-cross-lines t
+	  evil-default-cursor      'box
+	  evil-insert-state-cursor 'bar
+	  evil-emacs-state-cursor  'bar
+	  ;;evil-motion-state-cursor '("#D0BF8F"  box) ;; same as "zenburn-yellow-2"
+	  evil-motion-state-cursor 'box ;; same as time in mode line
+	  evil-normal-state-cursor 'box
+	  evil-visual-state-cursor 'box))
 
   ;; always re-enter Normal State after saving with C-x C-s
   (define-key evil-emacs-state-map (kbd "C-x C-s")
@@ -114,7 +116,10 @@
   (evil-matchit-mode 1))
 
 (use-package evil-paredit
-  :ensure t)
+  :ensure t
+  :config
+  (defun evil-called-interactively-p ()
+    (called-interactively-p 'any)))
 
 (use-package evil-nerd-commenter
   :ensure t

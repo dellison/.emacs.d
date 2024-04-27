@@ -41,6 +41,8 @@
 (when (display-graphic-p)
   (blink-cursor-mode 0))
 
+(require 'treesit)
+
 (server-start)
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
@@ -59,8 +61,7 @@
 (load "init-shell.el")
 (load "init-eshell.el")
 (load "init-yasnippet.el")
-;; (load "init-which-key.el")
-;; (load "init-treemacs.el")
+(load "init-treemacs.el")
 (load "init-pdf.el")
 
 (load "init-appearence.el")

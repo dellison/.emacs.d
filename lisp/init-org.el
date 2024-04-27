@@ -6,7 +6,6 @@
 	 )
   :hook ((org-mode . yas-minor-mode-on)
 	 ;;(org-mode . yas-reload-all)
-	 (org-mode . company-mode)
 	 ;; (org-agenda-mode . hl-line-mode)
 	 )
   :init
@@ -52,7 +51,9 @@
   )
 
 (use-package org-attach
-  :after org)
+  :after org
+  :init
+  (setq org-attach-id-dir "org-attachments"))
 
 (use-package org-capture
   :after org)
@@ -104,7 +105,7 @@ DEADLINE: %^t
   :commands org-roam-node-insert org-roam-node-find org-roam-capture
   :after org
   :init
-  (setq org-roam-directory (file-truename "~/Dropbox/org-roam")
+  (setq org-roam-directory (file-truename "~/org-roam")
 	org-roam-capture-templates
 	'(("d" "default" plain "%?" :target
 	   (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}
@@ -128,7 +129,14 @@ DEADLINE: %^t
                                  "#+title: %<%Y-%m-%d>\n"))))
   :config
   (org-roam-db-autosync-mode)
-  (add-to-list 'org-agenda-files org-roam-directory))
+  ;;(add-to-list 'org-agenda-files org-roam-directory)
+  )
+
+(use-package org-noter
+  :ensure t
+  :after org
+  :config
+  (org-noter-enable-org-roam-integration))
 
 (use-package org-super-agenda
   :ensure t
@@ -191,17 +199,25 @@ DEADLINE: %^t
 	org-super-agenda-unmatched-name "Other"
 	org-super-agenda-hide-empty-groups t))
 
-;;; (defun de/org-refile-here ())
+(defun de/org-refile-here (&optional arg default buffer rfloc msg)
+  (interactive)
+  (let ((org-refile-targets '((buffer-file-name :maxlevel . 4))))
+    (org-refile arg default buffer rfloc msg)))
 
-(use-package evil-org
-  :after evil org
-  ; :commands evil-org-mode evil-org-
-  :ensure t
-  :hook ((org-mode-hook . evil-org-mode))
-  :config
-  (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading))
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
+;; (use-package evil-org
+;;   :after evil org
+;;   ; :commands evil-org-mode evil-org-
+;;   :ensure t
+;;   :hook ((org-mode . evil-org-mode))
+;;   :bind ((:map org-mode-map
+;; 	  ("M-o" . nil)))
+;;   :config
+;;   (evil-define-key 'normal 'evil-org-mode
+;;     (kbd "O") nil
+;;     (kbd "M-o") nil)
+;;   (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading))
+;;   (require 'evil-org-agenda)
+;;   (evil-org-agenda-set-keys))
 
 
 (use-package reftex

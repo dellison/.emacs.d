@@ -1,6 +1,9 @@
 (use-package ibuffer
   :commands ibuffer
 
+  :hook
+  (ibuffer-mode . hl-line-mode)
+
   :bind
   (("C-x C-b" . ibuffer)
    :map ibuffer-mode-map
@@ -15,19 +18,28 @@
    ("M->" . de/ibuffer-end-of-buffer))
 
   :config
-  (defun de/ibuffer-beginning-of-buffer ()
-    (interactive)
-    (beginning-of-buffer)
-    (ibuffer-forward-line 2))
-  (defun de/ibuffer-end-of-buffer ()
-    (interactive)
-    (end-of-buffer)
-    (ibuffer-backward-line))
-  (defun de/setup-ibuffer-filters ()
-    ;; add an "unsaved" filter
-    (define-ibuffer-filter unsaved
-	"Toggle current view to only buffers which are unsaved."
-      (:description "unsaved")
-      (with-current-buffer buf
-	(and buffer-file-name (buffer-modified-p)))))
-  (add-hook 'ibuffer-hook #'de/setup-ibuffer-filters))
+  (require 'ibuf-ext)
+  (define-ibuffer-filter unsaved
+      "Toggle current view to only buffers which are unsaved."
+    (:description "unsaved")
+    (with-current-buffer buf
+      (and buffer-file-name (buffer-modified-p)))))
+
+(defun de/ibuffer-beginning-of-buffer ()
+  (interactive)
+  (beginning-of-buffer)
+  (ibuffer-forward-line 2))
+
+(defun de/ibuffer-end-of-buffer ()
+  (interactive)
+  (end-of-buffer)
+  (ibuffer-backward-line))
+
+;; (defun de/setup-ibuffer-filters ()
+;;   ;; add an "unsaved" filter
+;;   (define-ibuffer-filter unsaved
+;;       "Toggle current view to only buffers which are unsaved."
+;;     (:description "unsaved")
+;;     (with-current-buffer buf
+;;       (and buffer-file-name (buffer-modified-p)))))
+

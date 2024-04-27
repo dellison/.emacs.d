@@ -6,7 +6,9 @@
 (use-package vertico
   :ensure t
   :init
-  (vertico-mode))
+  (vertico-mode)
+  :config
+  (setq vertico-count 14))
 
 (use-package marginalia
   :ensure t

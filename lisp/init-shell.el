@@ -1,4 +1,5 @@
-(use-package shell)
+(use-package shell
+  :ensure t)
 
 (use-package exec-path-from-shell
   :ensure t

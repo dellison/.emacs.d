@@ -1,8 +1,6 @@
-(use-package tablist
-  :ensure t)
-
 (use-package pdf-tools
   :ensure t
+  :defer t
 
   :mode (("\\.pdf\\'" . pdf-view-mode))
 
@@ -19,7 +17,7 @@
 
   :config
   (require 'pdf-occur)
-  ;; (require 'pdf-outline)
+  (require 'pdf-outline)
   (pdf-tools-install)
   (defun de/pdf-faster-next-line-or-page (&optional lines)
     (interactive)

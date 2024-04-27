@@ -9,7 +9,3 @@
 (use-package treemacs-magit
   :ensure t
   :after magit)
-
-(use-package treemacs-projectile
-  :ensure t
-  :after projectile treemacs)

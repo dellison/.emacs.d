@@ -4,9 +4,7 @@
 	       ("C-c C-b" . eval-buffer)
 	       ("C-c e b" . eval-buffer)))
   :hook ((emacs-lisp-mode . de/lisps-mode-hook)
-	 (emacs-lisp-mode . turn-on-eldoc-mode)
-	 (emacs-lisp-mode . flycheck-mode)
-	 (emacs-lisp-mode . company-mode)))
+	 (emacs-lisp-mode . turn-on-eldoc-mode)))
 
 (use-package elisp-slime-nav
   :ensure t

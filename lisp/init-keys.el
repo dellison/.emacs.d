@@ -89,22 +89,10 @@ Otherwise, moves to the beginning of the line."
 		      (replace-regexp-in-string " +" "\+" query))))
 (global-set-key (kbd "C-c go") 'google-search)
 
-(defun de/open-emacs-configuration-file ()
-  "open a config file from demacs"
+(global-set-key (kbd "C-c de") #'de/emacs-file)
+(defun de/emacs-file ()
   (interactive)
-  (find-file
-   (ido-completing-read
-    "Emacs configuration file: "
-    (sort (file-expand-wildcards (format "%s/*.el" demacs-directory)) 'string<))))
-;; (global-set-key (kbd "C-c de") 'de/open-emacs-configuration-file)
-
-(defun de/visit-demacs ()
-  "Use helm to visit an emacs configuration file."
-  (interactive)
-  (let ((default-directory user-emacs-directory))
-    (counsel-projectile-find-file nil t)))
-
-(global-set-key (kbd "C-c de") #'de/visit-demacs)
+  (project-switch-project user-emacs-directory))
 
 (when (fboundp 'evil-mode)
   (defun de/save-buffer-and-normal-state ()
@@ -160,3 +148,8 @@ Only works if there are exactly two windows active."
 	   (set-window-buffer w2 b1)
 	   (set-window-start w1 s2)
 	   (set-window-start w2 s1)))))
+
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode 1))
