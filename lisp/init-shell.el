@@ -1,5 +1,7 @@
 (use-package shell
-  :ensure t)
+  :ensure t
+  :config
+  (add-to-list 'org-babel-load-languages '(shell . t)))
 
 (use-package exec-path-from-shell
   :ensure t
