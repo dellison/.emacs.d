@@ -8,9 +8,11 @@
   ;; (mapc (lambda (face)
   ;; 	  (set-face-attribute face nil :foreground 'unspecified))
   ;; 	'(whitespace-tab))
-  ;;(load-theme 'solarized-light t)
-  (load-theme 'solarized-dark t)
-  )
+  (load-theme 'solarized-light t)
+  (set-face-attribute 'org-block-begin-line nil :underline nil)
+  (set-face-attribute 'org-block-end-line nil :overline nil)
+  (set-face-attribute 'org-block nil :background "#eee8d5")
+  (setq org-fontify-quote-and-verse-blocks t))
 
 (use-package beacon
   :ensure t
