@@ -7,3 +7,6 @@
 (use-package forge
   :ensure t
   :after magit)
+
+(use-package ssh-agency
+  :ensure t)
