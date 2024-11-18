@@ -5,6 +5,7 @@
 	 ;;  ("y" . org-agenda-todo-yesterday))
 	 )
   :hook ((org-mode . yas-minor-mode-on)
+	 (org-mode . de/org-mode-setup)
 	 ;;(org-mode . yas-reload-all)
 	 ;; (org-agenda-mode . hl-line-mode)
 	 )
@@ -22,14 +23,18 @@
 	org-refile-targets (list
 			    (cons 'org-agenda-files '(:maxlevel . 4)))
 	org-refile-use-outline-path nil
-	org-refile-path-complete-in-steps nil)
+	org-refile-path-complete-in-steps nil
+	org-tags-column -80)
   :config
   (setq org-edit-src-content-indentation 0))
 
-;; (use-package org-babel
-;;   :after org
-;;   :config
-;;   (setq ))
+(defun de/org-mode-setup ()
+  (setq fill-column 80))
+
+(use-package ob ;; org-babel
+  :after org
+  :config
+  (require 'ob-shell))
 
 (use-package org-agenda
   :after org
@@ -101,7 +106,10 @@ DEADLINE: %^t
 	 ("C-c n d ." . org-roam-dailies-goto-today)
 	 ("C-c n f" . org-roam-node-find)
 	 ("C-c n i" . org-roam-node-insert)
-	 ("C-c n n" . org-roam-node-find))
+	 ("C-c n n" . org-roam-node-find)
+	 ("C-c M-<" . org-roam-dailies-goto-previous-note)
+	 ("C-c M->" . org-roam-dailies-goto-next-note)
+	 )
   :commands org-roam-node-insert org-roam-node-find org-roam-capture
   :after org
   :init
