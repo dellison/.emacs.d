@@ -12,13 +12,12 @@
   :ensure t
   :after python)
 
-(use-package pyvenv
+(use-package pet
   :ensure t
-  :after python)
+  :hook (python-base-mode . de/pet-setup)
+  :config
+  (add-hook 'python-base-mode-hook 'pet-mode -10)
+  :autoload pet-eglot-setup)
 
-(use-package auto-virtualenv
-  :ensure t
-  :after pyvenv
-  :hook ((python-mode . auto-virtualenv-set-virtualenv)
-	 ;;(projectile-after-switch-project auto-virtualenv-set-virtualenv)
-	 ))
+(defun de/pet-setup ()
+  (pet-eglot-setup))
