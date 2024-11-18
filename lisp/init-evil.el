@@ -12,15 +12,12 @@
 	 ("M-t"   . transpose-words)
 	 ("s-M-t" . transpose-sexps)
 	 ("C-w"   . backward-kill-word)
-	 ("TAB"   . nil)
-	 ("M-."   . nil)
-	 ("M-,"   . nil)
 	 :map evil-emacs-state-map
 	 ("C-z" . de/dont-suspend-frame)
 	 :map evil-insert-state-map
 	 ("C-z" . de/dont-suspend-frame)
-	 :map evil-motion-state-map
-	 ("RET" . nil)
+	 ;; :map evil-motion-state-map
+	 ;; ("RET" . nil)
 	 :map evil-visual-state-map
 	 ("C-n" . evil-next-visual-line)
 	 ("C-p" . evil-previous-visual-line))
@@ -57,6 +54,14 @@
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
   (when (display-graphic-p)
     (define-key evil-emacs-state-map [escape] 'evil-normal-state))
+
+  (unbind-key "TAB" evil-motion-state-map)
+  (unbind-key "M-." evil-motion-state-map)
+  (unbind-key "M-," evil-motion-state-map)
+  (unbind-key "TAB" evil-normal-state-map)
+  (unbind-key "M-." evil-normal-state-map)
+  (unbind-key "M-," evil-normal-state-map)
+
 
   ;;; Start the following modes in the Emacs state:
   (defvar initial-state-emacs-modes '(cider-docview-mode
