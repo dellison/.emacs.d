@@ -13,6 +13,7 @@
 (when (not (package-installed-p 'use-package))
   (package-refresh-contents)
   (package-install 'use-package))
+(add-hook 'package-menu-mode-hook #'hl-line-mode)
 
 
 (setq custom-file (expand-file-name (concat user-emacs-directory
