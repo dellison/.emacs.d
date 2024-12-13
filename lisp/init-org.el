@@ -18,6 +18,7 @@
 					       :matchers '("begin" "$1" "$" "$$" "\\(" "\\["))
 	org-indent-indentation-per-level 1
 	org-log-into-drawer t
+	org-log-states-order-reversed nil
 	;;org-log-done-with-time nil
 	
 	org-refile-targets (list
@@ -26,7 +27,30 @@
 	org-refile-path-complete-in-steps nil
 	org-tags-column -80)
   :config
-  (setq org-edit-src-content-indentation 0))
+  (setq org-edit-src-content-indentation 0)
+
+  (setq org-columns-summary-types nil)
+  (add-to-list 'org-columns-summary-types
+	       '("count" . de/org-count-summary-type-function))
+
+  (add-to-list 'org-columns-summary-types
+	       '("unique" . de/org-unique-summary-type-function))
+  :autoload 'org-columns-summary-types)
+
+(defun de/org-count-summary-type-function (vals format-str)
+  (format (or format-str "\*Count: %s\*")
+	  (length (seq-filter
+		   (lambda (x)
+		     (not (null x)))
+		   vals))))
+
+(defun de/org-unique-summary-type-function (vals format-str)
+  (format (or format-str "*Unique: %s*")
+	  (length
+	   (seq-uniq
+	    (seq-filter
+	     (lambda (x) (not (null x)))
+	     vals)))))
 
 (defun de/org-mode-setup ()
   (setq fill-column 80))
@@ -44,7 +68,10 @@
   :config
   (setq org-agenda-files (list "~/org")
 	org-agenda-include-diary t
-	org-agenda-span 'day)
+	org-agenda-span 'day
+	org-agenda-insert-diary-extract-time t
+	org-agenda-remove-times-when-in-prefix nil
+	org-agenda-timegrid-use-ampm t)
   :hook
   ((org-agenda-mode . hl-line-mode))
   )
@@ -52,7 +79,8 @@
 (use-package org-habit
   :after org
   :config
-  (setq org-habit-graph-column 70)
+  (setq org-habit-graph-column 80
+	org-habit-show-habits-only-for-today nil)
   )
 
 (use-package org-attach
