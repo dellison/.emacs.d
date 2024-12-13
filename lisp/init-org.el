@@ -144,11 +144,11 @@ DEADLINE: %^t
   (setq org-roam-directory (file-truename "~/org-roam")
 	org-roam-capture-templates
 	'(("d" "default" plain "%?" :target
-	   (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}
+	   (file+head "${slug}.org" "#+title: ${title}
 ")
 	   :unnarrowed t)
 	  ("t" "notes on a text" plain "%?\n* Main Argument\n* Supporting Arguments\n* Subjects and Sites\n* Sources\n* Methods\n* Scholarly Debate\n* Terms & Themes\n* Questions\n* Notes\n"
-	   :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}")
+	   :target (file+head "${slug}.org" "#+title: ${title}")
 	   :unarrowed t)
 
 	  ("n" "notes on a novel/short story" plain "%?\n* Setting* Plot Summary\n* Characters\n* Themes\n* Questions\n* Notes\n"
